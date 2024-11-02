@@ -7,7 +7,7 @@ import { config, DatabasePgConfigService } from './config';
 import { MoviesModule } from './movies/movies.module';
 import { StartWarApiModule } from './start-war-api/start-war-api.module';
 import { UtilsModule } from './utils/utils.module';
-import { TaskModule } from './task/task.module';
+import { TasksModule } from './tasks/tasks.module';
 
 @Module({
   imports: [
@@ -25,7 +25,7 @@ import { TaskModule } from './task/task.module';
     MoviesModule,
     StartWarApiModule,
     UtilsModule,
-    TaskModule,
+    TasksModule,
   ],
   controllers: [],
   providers: [],

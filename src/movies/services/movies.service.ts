@@ -76,6 +76,5 @@ export class MoviesService {
     }
 
     return this.moviesRepository.findOne({ where: whereConditions });
-
   }
 }

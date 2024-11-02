@@ -1,6 +1,6 @@
 import { Inject, Injectable, Logger, OnModuleInit } from '@nestjs/common';
-import { ConfigService, ConfigType } from '@nestjs/config';
-import { Cron, CronExpression, SchedulerRegistry } from '@nestjs/schedule';
+import { ConfigType } from '@nestjs/config';
+import { SchedulerRegistry } from '@nestjs/schedule';
 import { CronJob } from 'cron';
 
 
@@ -11,8 +11,8 @@ import { CreateMovieDto } from '../movies/dto';
 import { config } from '../config';
 
 @Injectable()
-export class TaskService implements OnModuleInit {
-    private readonly logger = new Logger(TaskService.name);
+export class TasksService implements OnModuleInit {
+    private readonly logger = new Logger(TasksService.name);
 
     constructor(
         @Inject(config.KEY)
@@ -24,16 +24,18 @@ export class TaskService implements OnModuleInit {
     ) { }
 
     async onModuleInit() {
-        const cronTime = this.configuration.params.cronTask;
-        const job = new CronJob(cronTime, () => {
-            this.handleCron();
+        const cronTime = this.configuration.params.cron.syncFilmsStartWars;
+        const syncFilmsStartWarsJob = new CronJob(cronTime, () => {
+            this.syncFilmsStartWars();
         });
 
-        this.schedulerRegistry.addCronJob(cronTime, job);
-        job.start();
+        this.schedulerRegistry.addCronJob(cronTime, syncFilmsStartWarsJob);
+        
+        // Start Jobs
+        syncFilmsStartWarsJob.start();
     }
 
-    async handleCron() {
+    async syncFilmsStartWars() {
         try {
             const respose = await this.startWarApiService.getAllFilms();
             const filmsStartWars = respose.results;

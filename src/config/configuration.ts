@@ -27,7 +27,9 @@ export default registerAs('config', () => {
             startWarApi: process.env.START_WARS_API,
         },
         params: {
-            cronTask: process.env.CRON_TASK,
+            cron: {
+                syncFilmsStartWars: process.env.CRON_TASK_SYNC_FILMS_START_WARS
+            }
         }
     };
 });
