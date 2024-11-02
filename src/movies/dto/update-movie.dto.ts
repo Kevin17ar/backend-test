@@ -6,28 +6,28 @@ export class UpdateMovieDto {
     @ApiPropertyOptional({
         type: String,
         example: 'Star Wars: Episode IV - A New Hope',
-        description: 'Movie title'
+        description: 'MovieEntity title'
     })
     title?: string;
 
     @ApiPropertyOptional({
         type: String,
         example: 'George Lucas',
-        description: 'Movie director'
+        description: 'MovieEntity director'
     })
     director?: string;
 
     @ApiPropertyOptional({
         type: String,
         example: 'Rick McCallum',
-        description: 'Movie producer'
+        description: 'MovieEntity producer'
     })
     producer?: string;
 
     @ApiPropertyOptional({
         type: String,
         example: '2002-05-16',
-        description: 'Movie release date'
+        description: 'MovieEntity release date'
     })
     releaseDate?: string;
 }

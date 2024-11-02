@@ -5,7 +5,7 @@ export class CreateMovieDto {
     @ApiProperty({
         type: String,
         example: 'Star Wars: Episode IV - A New Hope',
-        description: 'Movie title'
+        description: 'MovieEntity title'
     })
     @IsString()
     @IsNotEmpty()
@@ -14,7 +14,7 @@ export class CreateMovieDto {
     @ApiProperty({
         type: String,
         example: 'George Lucas',
-        description: 'Movie director'
+        description: 'MovieEntity director'
     })
     @IsString()
     @IsNotEmpty()
@@ -23,7 +23,7 @@ export class CreateMovieDto {
     @ApiProperty({
         type: String,
         example: 'Rick McCallum',
-        description: 'Movie producer'
+        description: 'MovieEntity producer'
     })
     @IsString()
     @IsNotEmpty()
@@ -32,7 +32,7 @@ export class CreateMovieDto {
     @ApiProperty({
         type: String,
         example: '2002-05-16',
-        description: 'Movie release date'
+        description: 'MovieEntity release date'
     })
     @IsString()
     @IsNotEmpty()

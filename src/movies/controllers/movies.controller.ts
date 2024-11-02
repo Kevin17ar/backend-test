@@ -5,7 +5,7 @@ import { UpdateMovieDto } from '../dto/update-movie.dto';
 import { GlobalSwagger } from '../../common/decorators/global-swagger.decorator';
 import { GetAllMoviesDto, MovieDto, PostCreateMovieDto } from '../dto';
 import { FindOptionsWhere } from 'typeorm';
-import { Movie } from '../entities/movie.entity';
+import { MovieEntity } from '../entities/movie.entity';
 
 @Controller('movies')
 export class MoviesController {
@@ -38,7 +38,7 @@ export class MoviesController {
   )
   @Get(':id')
   getMovideDetail(@Param('id') id: string) {
-    const whereConditions: FindOptionsWhere<Movie> = {
+    const whereConditions: FindOptionsWhere<MovieEntity> = {
       id: +id
     };
 

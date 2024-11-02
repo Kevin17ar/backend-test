@@ -4,15 +4,15 @@ import { BadRequestException, Injectable, NotFoundException } from '@nestjs/comm
 
 import { CreateMovieDto } from '../dto/create-movie.dto';
 import { UpdateMovieDto } from '../dto/update-movie.dto';
-import { Movie } from '../entities/movie.entity';
+import { MovieEntity } from '../entities/movie.entity';
 import { MoviesSerializer } from '../serializers/movies.serializer';
 import { MovieDto, PostCreateMovieDto } from '../dto';
 
 @Injectable()
 export class MoviesService {
   constructor(
-    @InjectRepository(Movie)
-    private readonly moviesRepository: Repository<Movie>,
+    @InjectRepository(MovieEntity)
+    private readonly moviesRepository: Repository<MovieEntity>,
     private readonly moviesSerializer: MoviesSerializer,
   ) { }
 
@@ -27,16 +27,16 @@ export class MoviesService {
       return this.moviesSerializer.postCreateMovie(movie);
     } catch (error) {
       if (error.code === '23505') {
-        throw new BadRequestException(`Movie already exists. ${error.detail}`);
+        throw new BadRequestException(`MovieEntity already exists. ${error.detail}`);
       }
       throw error;
     }
   }
 
-  async getMovieDetail(whereConditions: FindOptionsWhere<Movie>): Promise<MovieDto> {
+  async getMovieDetail(whereConditions: FindOptionsWhere<MovieEntity>): Promise<MovieDto> {
     const movie = await this.findOne(whereConditions);
     if (!movie) {
-      throw new NotFoundException(`Movie with conditions ${JSON.stringify(whereConditions)} not found`);
+      throw new NotFoundException(`MovieEntity with conditions ${JSON.stringify(whereConditions)} not found`);
     }
 
     return this.moviesSerializer.getMovieDetail(movie);
@@ -49,7 +49,7 @@ export class MoviesService {
     });
 
     if (!movie) {
-      throw new NotFoundException(`Movie with ID ${id} not found`);
+      throw new NotFoundException(`MovieEntity with ID ${id} not found`);
     }
     const updatedMovie = await this.moviesRepository.save(movie);
     return this.moviesSerializer.getMovieDetail(updatedMovie);
@@ -58,19 +58,19 @@ export class MoviesService {
   async deleteMovieById(id: number): Promise<void> {
     const deleteResult = await this.moviesRepository.delete({ id });
     if (!deleteResult.affected) {
-      throw new NotFoundException(`Movie with ID ${id} not found`);
+      throw new NotFoundException(`MovieEntity with ID ${id} not found`);
     };
   }
 
-  async save(createMovieDto: CreateMovieDto): Promise<Movie> {
+  async save(createMovieDto: CreateMovieDto): Promise<MovieEntity> {
     return this.moviesRepository.save(createMovieDto);
   }
 
-  async find(): Promise<Movie[]> {
+  async find(): Promise<MovieEntity[]> {
     return this.moviesRepository.find();
   }
 
-  async findOne(whereConditions: FindOptionsWhere<Movie>): Promise<Movie> {
+  async findOne(whereConditions: FindOptionsWhere<MovieEntity>): Promise<MovieEntity> {
     if (!whereConditions || Object.keys(whereConditions).length === 0) {
       throw new BadRequestException(`Not check with conditions. ${JSON.stringify(whereConditions)}`);
     }

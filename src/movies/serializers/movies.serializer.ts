@@ -1,12 +1,12 @@
 import { Injectable } from "@nestjs/common";
-import { Movie } from "../entities/movie.entity";
+import { MovieEntity } from "../entities/movie.entity";
 import { GetAllMoviesDto, MovieDto } from "../dto/get-all-movies.dto";
 import { PostCreateMovieDto } from "../dto/post-create-movie.dto";
 
 @Injectable()
 export class MoviesSerializer {
 
-    movieToMovieDto(movie: Movie): MovieDto {
+    movieToMovieDto(movie: MovieEntity): MovieDto {
         return {
             movieId: movie.id,
             title: movie.title,
@@ -16,18 +16,18 @@ export class MoviesSerializer {
         }
     };
 
-    getAllMovies(movies: Movie[]): GetAllMoviesDto {
+    getAllMovies(movies: MovieEntity[]): GetAllMoviesDto {
         return {
             count: movies.length,
             data: movies.map((movie) => this.movieToMovieDto(movie))
         }
     };
 
-    getMovieDetail(movie: Movie): MovieDto {
+    getMovieDetail(movie: MovieEntity): MovieDto {
         return this.movieToMovieDto(movie);
     };
 
-    postCreateMovie(movie: Movie): PostCreateMovieDto {
+    postCreateMovie(movie: MovieEntity): PostCreateMovieDto {
         return {
             movieId: movie.id,
             title: movie.title

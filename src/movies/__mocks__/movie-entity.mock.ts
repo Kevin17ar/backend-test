@@ -1,6 +1,6 @@
-import { Movie } from "../entities/movie.entity"
+import { MovieEntity } from "../entities/movie.entity"
 
-export const mockedMovieEntity = (): Movie => {
+export const mockedMovieEntity = (): MovieEntity => {
     return {
         id: 1,
         title: "Alien: Covenant",
@@ -12,7 +12,7 @@ export const mockedMovieEntity = (): Movie => {
     }
 }
 
-export const mockedMovieEntityList = (): Movie[] => {
+export const mockedMovieEntityList = (): MovieEntity[] => {
     return [
         {
             id: 1,

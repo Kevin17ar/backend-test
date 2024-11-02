@@ -8,6 +8,7 @@ import { MoviesModule } from './movies/movies.module';
 import { StartWarApiModule } from './start-war-api/start-war-api.module';
 import { UtilsModule } from './utils/utils.module';
 import { TasksModule } from './tasks/tasks.module';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { TasksModule } from './tasks/tasks.module';
     StartWarApiModule,
     UtilsModule,
     TasksModule,
+    UsersModule,
   ],
   controllers: [],
   providers: [],

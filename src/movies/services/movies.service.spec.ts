@@ -3,7 +3,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { Repository } from 'typeorm';
 
 import { MoviesService } from './movies.service';
-import { Movie } from '../entities/movie.entity';
+import { MovieEntity } from '../entities/movie.entity';
 import { MoviesSerializer } from '../serializers/movies.serializer';
 import { mockedMovieEntity, mockedMovieEntityList } from '../__mocks__/movie-entity.mock';
 import { mock } from 'node:test';
@@ -12,7 +12,7 @@ import { GetAllMoviesDto } from '../dto';
 describe('MoviesService tests', () => {
   let service: MoviesService;
   let moviesSerializer: MoviesSerializer;
-  let moviesRepository: Repository<Movie>;
+  let moviesRepository: Repository<MovieEntity>;
 
   const mockedResultMovieEntity = mockedMovieEntity();
   const mockedResultMoviesEntity = mockedMovieEntityList();
@@ -23,7 +23,7 @@ describe('MoviesService tests', () => {
         MoviesService,
         MoviesSerializer,
         {
-          provide: getRepositoryToken(Movie),
+          provide: getRepositoryToken(MovieEntity),
           useValue: {
             save: jest.fn(),
             find: jest.fn(),
@@ -36,7 +36,7 @@ describe('MoviesService tests', () => {
 
     service = module.get<MoviesService>(MoviesService);
     moviesSerializer = module.get<MoviesSerializer>(MoviesSerializer);
-    moviesRepository = module.get<Repository<Movie>>(getRepositoryToken(Movie));
+    moviesRepository = module.get<Repository<MovieEntity>>(getRepositoryToken(MovieEntity));
   });
 
   it('should be defined', () => {
@@ -73,7 +73,7 @@ describe('MoviesService tests', () => {
     });
 
     it('should handle empty movies array', async () => {
-      const mockMovies: Movie[] = [];
+      const mockMovies: MovieEntity[] = [];
 
       jest.spyOn(moviesRepository, 'find').mockResolvedValue(mockMovies);
 

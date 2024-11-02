@@ -8,7 +8,7 @@ import { MoviesSerializer } from '../serializers/movies.serializer';
 import { CreateMovieDto, GetAllMoviesDto } from '../dto';
 import { mockPostCreateMovieDto } from '../__mocks__/post-create-movie.mock';
 import { mockedMovieDto, mockGetAllMoviesDto } from '../__mocks__/get-all-movies.mock';
-import { Movie } from '../entities/movie.entity';
+import { MovieEntity } from '../entities/movie.entity';
 
 describe('MoviesController', () => {
   let controller: MoviesController;
@@ -101,7 +101,7 @@ describe('MoviesController', () => {
   describe('getMovideDetail', () => {
     it('should return a movie by id', async () => {
       const movieId = '1';
-      const whereConditions: FindOptionsWhere<Movie> = {
+      const whereConditions: FindOptionsWhere<MovieEntity> = {
         id: +movieId
       };
 
@@ -118,7 +118,7 @@ describe('MoviesController', () => {
 
     it('should handle non-numeric id', async () => {
       const invalidId = 'abc';
-      const whereConditions: FindOptionsWhere<Movie> = {
+      const whereConditions: FindOptionsWhere<MovieEntity> = {
         id: +invalidId // NaN
       };
 
@@ -132,10 +132,10 @@ describe('MoviesController', () => {
 
     it('should handle movie not found', async () => {
       const nonExistentId = '999';
-      const whereConditions: FindOptionsWhere<Movie> = {
+      const whereConditions: FindOptionsWhere<MovieEntity> = {
         id: +nonExistentId
       };
-      const error = new NotFoundException(`Movie with conditions ${JSON.stringify(whereConditions)} not found`)
+      const error = new NotFoundException(`MovieEntity with conditions ${JSON.stringify(whereConditions)} not found`)
 
       jest.spyOn(moviesService, 'getMovieDetail').mockRejectedValue(error);
 

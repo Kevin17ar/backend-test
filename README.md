@@ -24,7 +24,7 @@
 
 ## Description
 
-Movie management application
+MovieEntity management application
 
 ## Prerequisites
 
