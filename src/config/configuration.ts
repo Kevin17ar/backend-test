@@ -30,6 +30,10 @@ export default registerAs('config', () => {
             cron: {
                 syncFilmsStartWars: process.env.CRON_TASK_SYNC_FILMS_START_WARS
             }
+        },
+        auth: {
+            jwtSecret: process.env.JWT_SECRET_KEY,
+            jwtExpiresIn: process.env.JWT_EXPIRES_IN
         }
     };
 });

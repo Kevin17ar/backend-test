@@ -9,6 +9,7 @@ import { StartWarApiModule } from './start-war-api/start-war-api.module';
 import { UtilsModule } from './utils/utils.module';
 import { TasksModule } from './tasks/tasks.module';
 import { UsersModule } from './users/users.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -23,11 +24,12 @@ import { UsersModule } from './users/users.module';
       inject: [ConfigService]
     }),
     ScheduleModule.forRoot(),
+    AuthModule,
     MoviesModule,
-    StartWarApiModule,
-    UtilsModule,
     TasksModule,
     UsersModule,
+    StartWarApiModule,
+    UtilsModule,
   ],
   controllers: [],
   providers: [],

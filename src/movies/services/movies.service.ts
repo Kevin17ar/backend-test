@@ -18,7 +18,7 @@ export class MoviesService {
 
   async getAllMovies() {
     const movies = await this.find();
-    return this.moviesSerializer.getAllMovies(movies);
+    return this.moviesSerializer.getMovies(movies);
   }
 
   async createMovie(createMovieDto: CreateMovieDto): Promise<PostCreateMovieDto> {
@@ -62,19 +62,19 @@ export class MoviesService {
     };
   }
 
+  async findOne(whereConditions: FindOptionsWhere<MovieEntity>): Promise<MovieEntity> {
+    if (!whereConditions || Object.keys(whereConditions).length === 0) {
+      throw new BadRequestException(`Not check with conditions. ${JSON.stringify(whereConditions)}`);
+    }
+    
+    return this.moviesRepository.findOne({ where: whereConditions });
+  }
+
   async save(createMovieDto: CreateMovieDto): Promise<MovieEntity> {
     return this.moviesRepository.save(createMovieDto);
   }
 
   async find(): Promise<MovieEntity[]> {
     return this.moviesRepository.find();
-  }
-
-  async findOne(whereConditions: FindOptionsWhere<MovieEntity>): Promise<MovieEntity> {
-    if (!whereConditions || Object.keys(whereConditions).length === 0) {
-      throw new BadRequestException(`Not check with conditions. ${JSON.stringify(whereConditions)}`);
-    }
-
-    return this.moviesRepository.findOne({ where: whereConditions });
   }
 }

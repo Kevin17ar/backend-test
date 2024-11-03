@@ -1,12 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { FindOptionsWhere } from 'typeorm';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+
 import { MoviesService } from '../services/movies.service';
 import { CreateMovieDto } from '../dto/create-movie.dto';
 import { UpdateMovieDto } from '../dto/update-movie.dto';
 import { GlobalSwagger } from '../../common/decorators/global-swagger.decorator';
 import { GetAllMoviesDto, MovieDto, PostCreateMovieDto } from '../dto';
-import { FindOptionsWhere } from 'typeorm';
 import { MovieEntity } from '../entities/movie.entity';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @Controller('movies')
 export class MoviesController {
   constructor(private readonly moviesService: MoviesService) { }

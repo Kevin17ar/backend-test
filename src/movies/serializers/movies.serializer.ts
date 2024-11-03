@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, UseGuards } from "@nestjs/common";
 import { MovieEntity } from "../entities/movie.entity";
 import { GetAllMoviesDto, MovieDto } from "../dto/get-all-movies.dto";
 import { PostCreateMovieDto } from "../dto/post-create-movie.dto";
@@ -16,7 +16,7 @@ export class MoviesSerializer {
         }
     };
 
-    getAllMovies(movies: MovieEntity[]): GetAllMoviesDto {
+    getMovies(movies: MovieEntity[]): GetAllMoviesDto {
         return {
             count: movies.length,
             data: movies.map((movie) => this.movieToMovieDto(movie))
