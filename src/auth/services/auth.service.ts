@@ -1,15 +1,14 @@
 import { JwtService } from '@nestjs/jwt';
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 
 import { UsersService } from '../../users/services/users.service';
-import { CreateUserDto } from '../../users/dto/create-user.dto';
+import { CreateUserBodyDto } from '../../users/dto/create-user.dto';
 import { UserEntity } from '../../users/entities/user.entity';
 import { FindOptionsWhere } from 'typeorm';
 import { UserValidateDto } from '../dto/user-validate.dto';
-import { SingInDto, SingInResponseDto } from '../dto/sing-in.dto';
+import { SingInResponseDto } from '../dto/sing-in.dto';
 import { UserRegisterDto } from '../dto/user-register.dto';
-import { use } from 'passport';
 
 
 @Injectable()
@@ -32,13 +31,13 @@ export class AuthService {
     }
 
     async singIn(user: any): Promise<SingInResponseDto> {
-        const payload = { username: user.username, email: user.email, sub: user.id };
+        const payload = { username: user.username, email: user.email, sub: user.id, roles: user.roles };
         return {
             access_token: this.jwtService.sign(payload),
         };
     }
 
-    async register(createUserDTo: CreateUserDto): Promise<UserRegisterDto> {
+    async register(createUserDTo: CreateUserBodyDto): Promise<UserRegisterDto> {
         const hashedPassword = await bcrypt.hash(createUserDTo.password, 10);
         const user = await this.usersService.createUser({ ...createUserDTo, password: hashedPassword });
 

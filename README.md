@@ -24,12 +24,13 @@
 
 ## Description
 
-MovieEntity management application
+Movie management application
 
 ## Prerequisites
 
 - Node " >=20.0.0 "
 - Npm " >=10.7.0 "
+- PostgreSql
 
 ## Installation
 
@@ -41,7 +42,12 @@ $ npm install
 
 - Create the .env file
 - Copy all variables from .env.example to the newly created .env file
-- Fill in the database values according to the specific case
+
+#### Considerations for the .env:
+
+- Fill in the "xxxx" values.
+- Configure the # Cron settings as needed, you can use this link for help: (https://crontab.cronhub.io/).
+- If you don't have PostgreSQL in your environment, you have the option to run it with Docker. Go to the "PostgreSQL Dev with Docker" section below.
 
 ## Running the app
 
@@ -56,22 +62,36 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+## First-time Deployment Setup
+
+- Create the roles "ADMIN" and "REGULAR".
+
 ## Test
 
 ```bash
 # unit tests
 $ npm run test
 
-# e2e tests
-$ npm run test:e2e
-
 # test coverage
 $ npm run test:cov
 ```
 ## Documentation (Swagger)
 
-To access the Swagger documentation, go to the following link. (http://localhost:3000/docs)
+- To access the Swagger documentation, go to the following link. (http://localhost:3000/docs)
+- To access the swagger json, go to the followung link. (http://localhost:3000/docs-json)
 
+## PostgreSQL Dev with Docker
+
+```bash
+# run
+$ docker-compose up -d
+
+# stop
+$ docker-compose down
+
+# check state of containers
+$ docker ps
+```
 ## Support
 
 Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).

@@ -1,9 +1,10 @@
-import { UserEntity } from "../../users/entities/user.entity";
+import { RoleEntity } from "../../roles/entities/role.entity";
 
-export class UserValidateDto implements Omit<UserEntity, 'password'> {
+export class UserValidateDto {
     id: number;
     username: string;
     email: string;
+    roles: RoleEntity[];
     createdAt: Date;
     updateAt: Date;
 }

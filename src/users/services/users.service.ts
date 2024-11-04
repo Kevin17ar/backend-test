@@ -1,9 +1,9 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
-import { CreateUserDto } from '../dto/create-user.dto';
-import { UpdateUserDto } from '../dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { UserEntity } from '../entities/user.entity';
 import { FindOptionsWhere, Repository } from 'typeorm';
+
+import { CreateUserBodyDto, CreateUserDto } from '../dto/create-user.dto';
+import { UserEntity } from '../entities/user.entity';
 
 @Injectable()
 export class UsersService {
@@ -13,7 +13,12 @@ export class UsersService {
     private usersRepository: Repository<UserEntity>
   ) { }
 
-  async createUser(createUserDto: CreateUserDto): Promise<UserEntity> {
+  async createUser(createUserBodyDto: CreateUserBodyDto) {
+    const user = this.usersRepository.create({...createUserBodyDto, roles: createUserBodyDto.roles.map(role => ({ id: role }))});
+    return this.create(user);
+  }
+
+  async create(createUserDto: CreateUserDto): Promise<UserEntity> {
     try {
       return await this.usersRepository.save(createUserDto);
     } catch (error) {
@@ -28,12 +33,10 @@ export class UsersService {
     if (!whereConditions || Object.keys(whereConditions).length === 0) {
       throw new BadRequestException(`Not check with conditions. ${JSON.stringify(whereConditions)}`);
     }
-    
-    return this.usersRepository.findOne({where: whereConditions});
-  }
 
-  async save(createUserDto: CreateUserDto): Promise<UserEntity> {
-    return this.usersRepository.save(createUserDto);
+    return await this.usersRepository.findOne({
+      where: whereConditions,
+      relations: ['roles']
+    });
   }
-
 }

@@ -1,29 +1,29 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { UsersService } from './users.service';
-import { UserEntity } from '../entities/user.entity';
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { create } from 'domain';
 
-describe('UsersService', () => {
-  let service: UsersService;
+import { RolesService } from './roles.service';
+import { RoleEntity } from '../entities/role.entity';
+import { RolesSerializer } from '../serializers/roles.serializers';
+
+describe('RolesService', () => {
+  let service: RolesService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        UsersService,
+        RolesService,
+        RolesSerializer,
         {
-          provide: getRepositoryToken(UserEntity),
+          provide: getRepositoryToken(RoleEntity),
           useValue: {
             save: jest.fn(),
-            findOne: jest.fn(),
-            create: jest.fn(),
+            find: jest.fn(),
           }
         }
-
       ],
     }).compile();
 
-    service = module.get<UsersService>(UsersService);
+    service = module.get<RolesService>(RolesService);
   });
 
   it('should be defined', () => {

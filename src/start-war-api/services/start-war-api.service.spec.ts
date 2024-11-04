@@ -1,10 +1,9 @@
-import { Config } from './../../../node_modules/@sqltools/formatter/lib/core/types.d';
 import { Test, TestingModule } from '@nestjs/testing';
-import { StartWarApiService } from './start-war-api.service';
-import { ConfigModule } from '@nestjs/config';
-import { config } from '../../config';
 import { HttpModule, HttpService } from '@nestjs/axios';
-import { IGetFilms } from '../interfaces/films.interface';
+import { ConfigModule } from '@nestjs/config';
+
+import { StartWarApiService } from './start-war-api.service';
+import { config } from '../../config';
 import { mockedGetFilms } from '../__mocks__/get-films.mock';
 
 describe('StartWarApiService tests', () => {
